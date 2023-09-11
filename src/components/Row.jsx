@@ -34,10 +34,10 @@ function Row({ title, fetchURL }) {
                 <p className='text-2xl text-center '>Loading...</p>
             ) : (
                 <div>
-                    <div className='grid justify-center  items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-2 h-full   md:gap-10  px-5 '>
+                    <Link className='grid justify-center  items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-2 h-full   md:gap-10  px-5  '>
                         {movies.map((item, id) => (
-                            <div data-testid='movie-card' key={id} className=' border h-[230px] md:h-[490px] '>
-                                <div className='w-full  h-40 md:h-[370px]'>
+                            <div data-testid='movie-card' key={id} className=' border h-[230px] md:h-[490px] shadow-3xl '>
+                                <div className='w-full   h-36 md:h-[370px]'>
                                     <img data-testid='movie-poster'
                                         className='w-full h-full  object-cover'
                                         src={`https://image.tmdb.org/t/p/original/${item?.backdrop_path}`}
@@ -48,7 +48,7 @@ function Row({ title, fetchURL }) {
                                 <p data-testid='movie-release-date' className='p-1 text-xs md:text-sm' >{item?.release_date}</p>
                             </div>
                         ))}
-                    </div>
+                    </Link>
                 </div>
             )}
         </section>
