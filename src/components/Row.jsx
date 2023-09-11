@@ -34,18 +34,18 @@ function Row({ title, fetchURL }) {
                 <p className='text-2xl text-center '>Loading...</p>
             ) : (
                 <div>
-                    <div className='grid justify-center  items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-5 h-full   md:gap-10  px-5 '>
+                    <div className='grid justify-center  items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-2 h-full   md:gap-10  px-5 '>
                         {movies.map((item, id) => (
-                            <div data-testid='movie-card' key={id} className=' h-90 md:h-[490px] space-y-1'>
-                                <div className='w-full  h-32 md:h-[370px]'>
+                            <div data-testid='movie-card' key={id} className=' border h-[230px] md:h-[490px] '>
+                                <div className='w-full  h-40 md:h-[370px]'>
                                     <img data-testid='movie-poster'
                                         className='w-full h-full  object-cover'
                                         src={`https://image.tmdb.org/t/p/original/${item?.backdrop_path}`}
                                         alt={item?.title}
                                     />
                                 </div>
-                                <h1 data-testid='movie-title' className=' capitalize font-bold text-sm md:text-2xl' >{item?.title}</h1>
-                                <p data-testid='movie-release-date' className='text-xs md:text-2xl' >{item?.release_date}</p>
+                                <h1 data-testid='movie-title' className=' p-1 capitalize font-bold  text-xs md:text-xl' >{item?.title}</h1>
+                                <p data-testid='movie-release-date' className='p-1 text-xs md:text-sm' >{item?.release_date}</p>
                             </div>
                         ))}
                     </div>
