@@ -36,8 +36,8 @@ function Row({ title, fetchURL }) {
                 <div>
                     <div className='grid justify-center  items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-5 h-full   md:gap-10  px-5 '>
                         {movies.map((item, id) => (
-                            <div data-testid='movie-card' key={id} className=' h-40 md:h-[490px] space-y-1'>
-                                <div className='w-full h-40 md:h-[370px]'>
+                            <div data-testid='movie-card' key={id} className=' h-90 md:h-[490px] space-y-1'>
+                                <div className='w-full  h-32 md:h-[370px]'>
                                     <img data-testid='movie-poster'
                                         className='w-full h-full  object-cover'
                                         src={`https://image.tmdb.org/t/p/original/${item?.backdrop_path}`}
@@ -45,7 +45,7 @@ function Row({ title, fetchURL }) {
                                     />
                                 </div>
                                 <h1 data-testid='movie-title' className=' capitalize font-bold text-sm md:text-2xl' >{item?.title}</h1>
-                                <p data-testid='movie-release-date' className='text-sm md:text-2xl' >{item?.release_date}</p>
+                                <p data-testid='movie-release-date' className='text-xs md:text-2xl' >{item?.release_date}</p>
                             </div>
                         ))}
                     </div>
