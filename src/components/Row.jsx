@@ -24,8 +24,8 @@ function Row({ title, fetchURL }) {
 
     return (
         <section className='max-w-6xl mx-auto'>
-            <div className='flex justify-between items-center pt-10 pb-10'>
-                <h2 className='text-4xl font-bold capitalize'>{title}</h2>
+            <div className='flex justify-between items-center pt-10 pb-10 px-5'>
+                <h2 className=' text-xl md:text-4xl font-bold capitalize'>{title}</h2>
                 <Link to='' className='text-red-700 flex text-lg items-center gap-2'>
                     see all<AiOutlineRight />
                 </Link>
@@ -34,18 +34,18 @@ function Row({ title, fetchURL }) {
                 <p className='text-2xl text-center '>Loading...</p>
             ) : (
                 <div>
-                    <div className='grid justify-center border items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-5  md:gap-10  px-5 '>
+                    <div className='grid justify-center  items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-5 h-full   md:gap-10  px-5 '>
                         {movies.map((item, id) => (
-                            <div data-testid='movie-card' key={id} className=' h-40 md:h-[490px] space-y-2'>
-                                <div className='w-full h-20 md:h-[370px]'>
+                            <div data-testid='movie-card' key={id} className=' h-40 md:h-[490px] space-y-1'>
+                                <div className='w-full h-60 md:h-[370px]'>
                                     <img data-testid='movie-poster'
                                         className='w-full h-full  object-cover'
                                         src={`https://image.tmdb.org/t/p/original/${item?.backdrop_path}`}
                                         alt={item?.title}
                                     />
                                 </div>
-                                <h1 data-testid='movie-title' >{item?.title}</h1>
-                                <p data-testid='movie-release-date' >{item?.release_date}</p>
+                                <h1 data-testid='movie-title' className=' capitalize font-bold text-sm md:text-2xl' >{item?.title}</h1>
+                                <p data-testid='movie-release-date' className='text-sm md:text-2xl' >{item?.release_date}</p>
                             </div>
                         ))}
                     </div>
