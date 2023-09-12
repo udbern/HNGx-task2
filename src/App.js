@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import MovieDetails from "./pages/MoviesDetails";
 
 
 
 function App() {
   return (
     <Router>
-    <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/movie/:id" element={<MovieDetails/>} />
       </Routes>
-    <Footer/>
+      <Footer />
     </Router>
   );
 }
