@@ -4,12 +4,13 @@ import requests from '../Requests';
 import Row from '../components/Row';
 import Navbar from "../components/Navbar";
 
+
 function Home() {
   return (
     <>
       <Navbar />
-        <Main/>
-        <Row title='top 10' fetchURL={requests.requestTrending}/>
+      <Main />
+      <Row title='top 10' fetchURL={requests.requestTrending} />
     </>
   )
 }

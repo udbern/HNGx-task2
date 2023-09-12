@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { IoTicketOutline } from "react-icons/io5";
 import { TfiMenuAlt } from "react-icons/tfi";
+import { CgMenu } from "react-icons/cg";
 
 const key = "420ea1ce6b91149d335150a115e26337"; // Your API key
 
@@ -11,6 +12,7 @@ function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Initially open on medium screens
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -41,13 +43,20 @@ function MovieDetails() {
     return date.toUTCString();
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <>
       <section className="flex">
-        <div className=" bg-white px-2 md:px-0 absolute md:relative top-0 left-0 w-[60%] md:flex-1 border rounded-r-xl">
-          <Sidebar />
+        <div className={`bg-white px-2 md:px-0 absolute md:relative top-0 left-0 w-[60%] md:flex-[2] border rounded-r-xl ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full transition-transform duration-300'}`}>
+          <Sidebar isOpen={isSidebarOpen} />
         </div>
-        <div className="flex-[5] p-5 ">
+        <div className="flex-[7] p-5 ">
+          <div className="md:hidden flex justify-end text-2xl ">
+            <CgMenu onClick={toggleSidebar} />
+          </div>
           {loading ? (
             <p>Loading...</p>
           ) : (
@@ -86,9 +95,9 @@ function MovieDetails() {
                     </button>
                   </div>
                 </div>
-                <div className="flex-1">
+                <div className="flex-[2]">
                   <div className="grid p-2 justify-center space-y-5">
-                    <button className="bg-[#BE123C] hover:bg-[#ff124d] duration-300 ease-in-out  py-2 px-6 rounded-lg text-[#FFFFFF]  flex items-center justify-center gap-2 ">
+                    <button className="bg-[#BE123C] hover:bg.bg-[#ff124d] duration-300 ease-in-out  py-2 px-6 rounded-lg text-[#FFFFFF]  flex items-center justify-center gap-2 ">
                       <IoTicketOutline />
                       See Showtimes
                     </button>
@@ -96,7 +105,7 @@ function MovieDetails() {
                       <TfiMenuAlt />
                       More watch options
                     </button>
-                    <div className=" relative  grid grid-cols-3 gap-1 rounded-lg overflow-hidden ">
+                    <div className="relative grid grid-cols-3 gap-1 rounded-lg overflow-hidden">
                       <img
                         src="https://www.washingtonpost.com/graphics/2019/entertainment/oscar-nominees-movie-poster-design/img/black-panther-web.jpg"
                         alt=""
@@ -109,11 +118,14 @@ function MovieDetails() {
                         src="https://www.dreamworks.com/storage/movies/kung-fu-panda/posters/kung-fu-panda-poster-1.jpg"
                         alt=""
                       />
-                      <button className="absolute bottom-0 h-10 w-full  flex items-center text-xs justify-center gap-1">
-                        <TfiMenuAlt className="text-xl" /> The Best Movies and
-                        Shows in September
+                      <button className="absolute bg-gray-300 bottom-0 h-10 w-full flex items-center text-xs justify-center gap-1">
+                        <TfiMenuAlt className="text-xl " /> The Best Movies and Shows in September
                       </button>
+                      <div className="absolute inset-0 flex items-center justify-center bg-black opacity-50 hover:opacity-75 transition-opacity duration-300">
+                        {/* This div creates the overlay effect */}
+                      </div>
                     </div>
+
                   </div>
                 </div>
               </div>
