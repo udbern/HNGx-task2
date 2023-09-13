@@ -13,7 +13,7 @@ function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(true);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Initially open on medium screens
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
