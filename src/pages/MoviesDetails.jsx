@@ -7,23 +7,34 @@ import { TfiMenuAlt } from "react-icons/tfi";
 import Mobile from '../components/MobileSidaebar'
 import { BsFillPlayBtnFill } from "react-icons/bs";
 
+// My API key for themoviedb.org
 const key = "420ea1ce6b91149d335150a115e26337";
 
 function MovieDetails() {
+  // Extract the "id" parameter from the URL using useParams
   const { id } = useParams();
+
+  // Define state variables to store movie details and loading state
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(true);
+
+  // State to control the mobile sidebar visibility
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Initially open on medium screens
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
+        // Make an API request to fetch movie d
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${key}&language=en-US`
         );
         setMovie(response.data);
+
+        // Set the movie details in the state and mark loading as complete
+        setMovie(response.data);
         setLoading(false);
       } catch (error) {
+        // Handle errors, if any, and mark loading as complete
         console.error("Error fetching movie details:", error);
         setLoading(false);
       }
@@ -33,18 +44,21 @@ function MovieDetails() {
   }, [id]);
   //console.log(movie);
 
+
+  // Function to format movie runtime in hours and minutes
   const formatRuntime = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
     return `${hours}h ${remainingMinutes}m`;
   };
 
+  // Function to format movie release date to a UTC format
   const formatReleaseDate = (dateString) => {
     const date = new Date(dateString);
     return date.toUTCString();
   };
 
-
+  // Function to toggle the mobile sidebar
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -58,17 +72,22 @@ function MovieDetails() {
         <div className="hidden md:flex md:flex-[3] lg:flex-[2]">
           <Sidebar />
         </div>
+        {/* Main content */}
         <div className="flex-[7] p-5 ">
+          {/* Mobile sidebar toggle button */}
           <div className="md:hidden flex justify-end text-2xl pb-2 ">
             <div className="bg-[#BE123C] w-8 h-8 md:w-[36px] md:h-[36px] rounded-full flex flex-col justify-center items-center space-y-1 cursor-pointer" onClick={toggleSidebar}>
               <div className="bg-white w-4 h-0.5 md:w-6 md:h-1"></div>
               <div className="bg-white w-4 h-0.5 md:w-6 md:h-1"></div>
             </div>
           </div>
+          {/* Movie details */}
           {loading ? (
             <p>Loading...</p>
           ) : (
+              // Display movie details once loading is complete
             <div>
+                {/* Movie poster */}
               <div className="  relative h-60 md:h-[300px] lg:h-[449px] w-full rounded-xl overflow-hidden">
                 <img
                   className="object-cover w-full h-full "
@@ -76,6 +95,7 @@ function MovieDetails() {
                   alt={movie?.title}
                   loading="lazy"
                 />
+                  {/* Play button */}
                   <div className="absolute  top-0 right-0 w-full h-60 md:h-[300px] lg:h-[449px] rounded-xl overflow-hidden flex justify-center  items-center  ">
                     <BsFillPlayBtnFill className=" hover-text-black text-white motion-safe:animate-pulse  duration-500 cursor-pointer  text-7xl"/>
                 </div>

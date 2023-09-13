@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import Logo from "../assets/Logo2.png";
-import { NavLink, useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { BiHome, BiLogIn } from "react-icons/bi";
-import { PiTelevisionSimpleBold } from "react-icons/pi";
-import { ImVideoCamera } from "react-icons/im";
+// Import necessary modules and components from external libraries
+import React from "react"; 
+import Logo from "../assets/Logo2.png"; 
+import { NavLink, useLocation } from "react-router-dom"; 
+import { Link } from "react-router-dom"; 
+import { BiHome, BiLogIn } from "react-icons/bi"; 
+import { PiTelevisionSimpleBold } from "react-icons/pi"; 
+import { ImVideoCamera } from "react-icons/im"; 
 import { SlCalender } from "react-icons/sl";
 
 
 function Sidebar() {
+  // Get the current location using the useLocation hook
   const location = useLocation();
- 
-
+  // Check if the current location is the home page
   const isActive = location.pathname === "";
 
   return (
@@ -21,7 +22,9 @@ function Sidebar() {
           <div className=" relative flex items-center justify-between w-full">
             <img className=" w-40 px-4" src={Logo} alt="logo.png" />
           </div>
+          {/* Navigation links */}
           <ul className=" flex flex-col justify-center items-center space-y-5">
+            {/* Home Link */}
             <NavLink
               to="/"
               className={`flex items-center justify-center p-4 w-full gap-2 text-xl capitalize font-semibold ${isActive ? " text-white" : ""
@@ -31,6 +34,7 @@ function Sidebar() {
               home
             </NavLink>
 
+            {/* Movies Link */}
             <NavLink
               to="/"
               className={`flex items-center justify-center p-4 w-full gap-2 text-xl capitalize font-semibold ${isActive ? " text-white" : ""
@@ -40,6 +44,7 @@ function Sidebar() {
               movies
             </NavLink>
 
+            {/* TV Series Link */}
             <NavLink
               to=""
               className={`flex items-center justify-center p-4 w-full gap-2 text-xl capitalize font-semibold ${isActive ? " text-white" : "bg-[#be123c19] text-[#BE123C]"
@@ -49,6 +54,7 @@ function Sidebar() {
               tv series
             </NavLink>
 
+            {/* Upcoming Link */}
             <NavLink
               to=""
               className={`flex items-center justify-center p-4 w-full gap-2 text-xl capitalize font-semibold ${isActive ? " text-white" : ""
@@ -60,7 +66,7 @@ function Sidebar() {
           </ul>
           <div className=" border  mx-2 p-5  rounded-3xl bg-[#f8e7eb66]  space-y-2 ">
             <p className=" font-semibold text-base text-[#333333cc]">
-              Play movie quizes and earn free tickets
+              Play movie quizzes and earn free tickets
             </p>
             <p className=" text-xs font-semibold text-[#666]">
               50k people are playing now
@@ -70,7 +76,6 @@ function Sidebar() {
                 Start playing
               </button>
             </div>
-            
           </div>
           <Link
             className="flex items-center  gap-3 justify-center pt-2 pb-5 font-semibold text-xl text-[#666]"
@@ -84,5 +89,6 @@ function Sidebar() {
     </>
   );
 }
+
 
 export default Sidebar;
