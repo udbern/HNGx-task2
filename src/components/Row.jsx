@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { AiOutlineRight, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 function Row({ title, fetchURL }) {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +39,7 @@ function Row({ title, fetchURL }) {
           <div className="grid justify-center items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 h-full md:gap-5 px-5">
             {movies.map((item) => (
               <Link data-testid="movie-card"
-                to={`/movie/${item.id}`}
+                to={`/movie/${item.id}`} 
                 key={item.id}
                 className="border group h-[230px] md:h-[490px] shadow-3xl"
               >
@@ -49,6 +50,7 @@ function Row({ title, fetchURL }) {
                     alt={item?.title}
                     loading="lazy"
                   />
+
                 </div>
                 <h1 data-testid="movie-title" className="p-2 capitalize font-bold text-sm md:text-xl">
                   {item?.title}

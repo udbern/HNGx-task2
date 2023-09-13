@@ -31,7 +31,7 @@ function MovieDetails() {
 
     fetchMovieDetails();
   }, [id]);
-  console.log(movie);
+  //console.log(movie);
 
   const formatRuntime = (minutes) => {
     const hours = Math.floor(minutes / 60);

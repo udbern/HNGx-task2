@@ -32,7 +32,7 @@ function Navbar() {
           <Link className="w-28 md:w-40" to="/">
             <img src={Logo} alt="logo.png" />
           </Link>
-          <div className={`hidden md:flex ${isSearchOpen ? "opacity-100" : "opacity-0 transition-opacity duration-300 ease-in-out"}`}>
+          <div className="hidden md:flex">
             <Search />
           </div>
           <div className={`absolute top-20 px-20 left-0 right-0 md:hidden ${isSearchOpen ? "opacity-100" : "opacity-0 transition-opacity duration-300 ease-in-out"}`}>
