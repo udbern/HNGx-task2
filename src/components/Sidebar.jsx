@@ -32,7 +32,7 @@ function Sidebar() {
             </NavLink>
 
             <NavLink
-              to=""
+              to="/"
               className={`flex items-center justify-center p-4 w-full gap-2 text-xl capitalize font-semibold ${isActive ? " text-white" : ""
                 }`}
             >
@@ -58,16 +58,19 @@ function Sidebar() {
               upcoming
             </NavLink>
           </ul>
-          <div className=" border p-4 mx-5 rounded-3xl bg-[#f8e7eb66]  space-y-2 ">
+          <div className=" border  mx-2 p-5  rounded-3xl bg-[#f8e7eb66]  space-y-2 ">
             <p className=" font-semibold text-base text-[#333333cc]">
               Play movie quizes and earn free tickets
             </p>
             <p className=" text-xs font-semibold text-[#666]">
               50k people are playing now
             </p>
-            <button className=" justify-center  rounded-3xl px-6 py-1 bg-[#BE123C33] text-[#BE123C]">
-              Start playing
-            </button>
+            <div className="flex justify-center w-full ">
+              <button className=" rounded-3xl px-6 py-1 bg-[#BE123C33] text-[#BE123C]">
+                Start playing
+              </button>
+            </div>
+            
           </div>
           <Link
             className="flex items-center  gap-3 justify-center pt-2 pb-5 font-semibold text-xl text-[#666]"

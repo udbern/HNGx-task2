@@ -4,15 +4,16 @@ import { useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { IoTicketOutline } from "react-icons/io5";
 import { TfiMenuAlt } from "react-icons/tfi";
-import { CgMenu } from "react-icons/cg";
+import Mobile from '../components/MobileSidaebar'
+import { BsFillPlayBtnFill } from "react-icons/bs";
 
-const key = "420ea1ce6b91149d335150a115e26337"; // Your API key
+const key = "420ea1ce6b91149d335150a115e26337";
 
 function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(true);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Initially open on medium screens
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -43,6 +44,7 @@ function MovieDetails() {
     return date.toUTCString();
   };
 
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -50,26 +52,35 @@ function MovieDetails() {
   return (
     <>
       <section className="flex">
-        <div className={`bg-white px-2 md:px-0 absolute md:relative top-0 left-0 w-[60%] md:flex-[2] border rounded-r-xl ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full transition-transform duration-300'}`}>
-          <Sidebar isOpen={isSidebarOpen} />
+        <div className={`md:hidden absolute top-0 bg-white w-[60%] shadow-xl z-20  rounded-md ${isSidebarOpen ? '' : 'hidden'}`}>
+          <Mobile />
+        </div>
+        <div className="hidden md:flex md:flex-[3] lg:flex-[2]">
+          <Sidebar />
         </div>
         <div className="flex-[7] p-5 ">
-          <div className="md:hidden flex justify-end text-2xl ">
-            <CgMenu onClick={toggleSidebar} />
+          <div className="md:hidden flex justify-end text-2xl pb-2 ">
+            <div className="bg-[#BE123C] w-8 h-8 md:w-[36px] md:h-[36px] rounded-full flex flex-col justify-center items-center space-y-1 cursor-pointer" onClick={toggleSidebar}>
+              <div className="bg-white w-4 h-0.5 md:w-6 md:h-1"></div>
+              <div className="bg-white w-4 h-0.5 md:w-6 md:h-1"></div>
+            </div>
           </div>
           {loading ? (
             <p>Loading...</p>
           ) : (
             <div>
-              <div className=" h-60 md:h-[449px] rounded-xl overflow-hidden">
+              <div className="  relative h-60 md:h-[300px] lg:h-[449px] w-full rounded-xl overflow-hidden">
                 <img
                   className="object-cover w-full h-full "
                   src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
                   alt={movie?.title}
                   loading="lazy"
                 />
+                  <div className="absolute  top-0 right-0 w-full h-60 md:h-[300px] lg:h-[449px] rounded-xl overflow-hidden flex justify-center  items-center  ">
+                    <BsFillPlayBtnFill className=" hover-text-black text-white motion-safe:animate-pulse  duration-500 cursor-pointer  text-7xl"/>
+                </div>
               </div>
-              <div className=" flex-wrap md:flex-nowrap md:flex  text-left  items-center md:space-x-4 p-2 text-[#404040] md:text-[23px] font-normal ">
+              <div className=" flex-wrap md:flex-nowrap md:flex  text-left  items-center md:space-x-4 p-2 text-[#404040] lg:text-[23px] font-normal ">
                 <p data-testid="movie-title">{movie?.title}</p>
                 <p data-testid="movie-release-date">
                   {formatReleaseDate(movie?.release_date)}
@@ -82,7 +93,7 @@ function MovieDetails() {
                 <div className="flex-[3] p-2 space-y-3">
                   <p
                     data-testid="movie-overview"
-                    className="text-[#333] font-semibold  md:text-xl"
+                    className="text-[#333] font-semibold  md:text-sm lg:text-xl"
                   >
                     {movie?.overview}
                   </p>
@@ -90,18 +101,18 @@ function MovieDetails() {
                   <p>Actors: {movie?.actors}</p>
                   <p>Stars: {movie?.stars}</p>
                   <div>
-                    <button className=" bg-[#BE123C] hover:bg-[#ff124d] duration-300 ease-in-out text-[#FFFFFF]  px-10 py-2  rounded-xl ">
-                      Top rated movie
+                    <button className=" bg-[#BE123C] hover:bg-[#a13b54] duration-300 ease-in-out text-[#FFFFFF]  px-10 py-2  rounded-xl ">
+                      Top-rated movie
                     </button>
                   </div>
                 </div>
                 <div className="flex-[2]">
                   <div className="grid p-2 justify-center space-y-5">
-                    <button className="bg-[#BE123C] hover:bg.bg-[#ff124d] duration-300 ease-in-out  py-2 px-6 rounded-lg text-[#FFFFFF]  flex items-center justify-center gap-2 ">
+                    <button className="bg-[#BE123C] hover:bg-[#a13b54] duration-300 ease-in-out  py-2 px-6 rounded-lg text-[#FFFFFF]  flex items-center justify-center gap-2 ">
                       <IoTicketOutline />
                       See Showtimes
                     </button>
-                    <button className="flex items-center justify-center gap-2 bg-[#be123c19] hover:bg-[#af708119] duration-300 ease-in-out py-2 px-6 rounded-lg">
+                    <button className="flex  md:text-sm lg:text-xl items-center justify-center gap-2 bg-[#be123c19] hover:bg-[#af708119] duration-300 ease-in-out py-2 px-6 rounded-lg">
                       <TfiMenuAlt />
                       More watch options
                     </button>
@@ -118,14 +129,17 @@ function MovieDetails() {
                         src="https://www.dreamworks.com/storage/movies/kung-fu-panda/posters/kung-fu-panda-poster-1.jpg"
                         alt=""
                       />
-                      <button className="absolute bg-gray-300 bottom-0 h-10 w-full flex items-center text-xs justify-center gap-1">
-                        <TfiMenuAlt className="text-xl " /> The Best Movies and Shows in September
-                      </button>
-                      <div className="absolute inset-0 flex items-center justify-center bg-black opacity-50 hover:opacity-75 transition-opacity duration-300">
-                        {/* This div creates the overlay effect */}
-                      </div>
-                    </div>
 
+                      <div className="absolute  bottom-0 h-10 w-full   text-white">
+                        <button className="  relative w-full h-full  flex items-center text-xs justify-center gap-1">
+                          <TfiMenuAlt className="text-xl " /> The Best Movies and Shows in September
+                        </button>
+                        <div className="absolute inset-0 flex items-center justify-center bg-black  opacity-40 hover:opacity-40 transition-opacity duration-300">
+                        </div>
+                      </div>
+
+
+                    </div>
                   </div>
                 </div>
               </div>

@@ -4,6 +4,7 @@ import requests from '../Requests';
 import { AiOutlinePlayCircle } from 'react-icons/ai';
 import IMDB from '../assets/imdb.png'
 import Tomato from '../assets/tomato.png'
+import { Link } from "react-router-dom";
 
 function Main() {
     const [movies, setMovies] = useState([]);
@@ -45,10 +46,11 @@ function Main() {
                             <p>97%</p>
                         </div>
                     </div>
-                    <div className=''>
-                        <button className="bg-[#BE123C] flex items-center gap-2 rounded-md hover:bg-[#f33b3b] text-white font-bold py-2 px-4 mt-4 duration-300 ease-in-out  ">
+                    <div className='bg-[#BE123C] rounded-md hover:bg-[#f33b3b] text-white font-bold py-2 px-4 mt-4 duration-300 ease-in-out w-fit'>
+                        <Link to={`/movie/${movie?.id}`}
+                            key={movie?.id} className="  flex items-center gap-2 ">
                             <AiOutlinePlayCircle  className='w-5 h-5' />Watch Trailer
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

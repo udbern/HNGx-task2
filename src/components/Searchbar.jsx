@@ -12,7 +12,7 @@ function Searchbar() {
           placeholder="What do you want to watch"
           className="flex-1 text-xs px-10 bg-transparent focus:outline-none"
         />
-        <BiSearch className='text-2xl cursor-pointer'/>
+        <BiSearch className=' hidden md:flex text-2xl cursor-pointer'/>
       </div>
     </>
   )
