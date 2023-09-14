@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { IoTicketOutline } from "react-icons/io5";
 import { TfiMenuAlt } from "react-icons/tfi";
-import Mobile from '../components/MobileSidaebar'
+import Mobile from "../components/MobileSidaebar";
 import { BsFillPlayBtnFill } from "react-icons/bs";
+import Modal from "react-modal";
 
 // My API key for themoviedb.org
 const key = "420ea1ce6b91149d335150a115e26337";
@@ -17,14 +18,32 @@ function MovieDetails() {
   // Define state variables to store movie details and loading state
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(true);
+  const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
 
   // State to control the mobile sidebar visibility
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Initially open on medium screens
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+
+  useEffect(() => {
+    const fetchNowPlayingMovies = async () => {
+      try {
+        // Make an API request to fetch now playing movies
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&language=en-US&page=1`
+        );
+        setNowPlayingMovies(response.data.results);
+      } catch (error) {
+        console.error("Error fetching now playing movies:", error);
+      }
+    };
+
+    fetchNowPlayingMovies();
+  }, []);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        // Make an API request to fetch movie d
+        // Make an API request to fetch movie details
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${key}&language=en-US`
         );
@@ -42,8 +61,6 @@ function MovieDetails() {
 
     fetchMovieDetails();
   }, [id]);
-  //console.log(movie);
-
 
   // Function to format movie runtime in hours and minutes
   const formatRuntime = (minutes) => {
@@ -54,8 +71,14 @@ function MovieDetails() {
 
   // Function to format movie release date to a UTC format
   const formatReleaseDate = (dateString) => {
+    const options = {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    };
     const date = new Date(dateString);
-    return date.toUTCString();
+    return date.toLocaleDateString("en-US", options);
   };
 
   // Function to toggle the mobile sidebar
@@ -66,7 +89,10 @@ function MovieDetails() {
   return (
     <>
       <section className="flex">
-        <div className={`md:hidden absolute top-0 bg-white w-[60%] shadow-xl z-20  rounded-md ${isSidebarOpen ? '' : 'hidden'}`}>
+        <div
+          className={`md:hidden absolute top-0 bg-white w-[60%] shadow-xl z-20  rounded-md ${isSidebarOpen ? "" : "hidden"
+            }`}
+        >
           <Mobile />
         </div>
         <div className="hidden md:flex md:flex-[3] lg:flex-[2]">
@@ -76,18 +102,23 @@ function MovieDetails() {
         <div className="flex-[7] p-5 ">
           {/* Mobile sidebar toggle button */}
           <div className="md:hidden flex justify-end text-2xl pb-2 ">
-            <div className="bg-[#BE123C] w-8 h-8 md:w-[36px] md:h-[36px] rounded-full flex flex-col justify-center items-center space-y-1 cursor-pointer" onClick={toggleSidebar}>
+            <div
+              className="bg-[#BE123C] w-8 h-8 md:w-[36px] md:h-[36px] rounded-full flex flex-col justify-center items-center space-y-1 cursor-pointer"
+              onClick={toggleSidebar}
+            >
               <div className="bg-white w-4 h-0.5 md:w-6 md:h-1"></div>
               <div className="bg-white w-4 h-0.5 md:w-6 md:h-1"></div>
             </div>
           </div>
           {/* Movie details */}
           {loading ? (
-            <p>Loading...</p>
+            <p className="text-2xl flex justify-center items-center  h-full w-full ">
+              Loading...
+            </p>
           ) : (
-              // Display movie details once loading is complete
+            // Display movie details once loading is complete
             <div>
-                {/* Movie poster */}
+              {/* Movie poster */}
               <div className="  relative h-60 md:h-[300px] lg:h-[449px] w-full rounded-xl overflow-hidden">
                 <img
                   className="object-cover w-full h-full "
@@ -95,9 +126,10 @@ function MovieDetails() {
                   alt={movie?.title}
                   loading="lazy"
                 />
-                  {/* Play button */}
-                  <div className="absolute  top-0 right-0 w-full h-60 md:h-[300px] lg:h-[449px] rounded-xl overflow-hidden flex justify-center  items-center  ">
-                    <BsFillPlayBtnFill className=" hover-text-black text-white motion-safe:animate-pulse  duration-500 cursor-pointer  text-7xl"/>
+                {/* Play button */}
+                <div
+                  className="absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-[80px] md:h-[80px] rounded-full bg-[#BE123C] cursor-pointer flex justify-center items-center">
+                  <BsFillPlayBtnFill className="hover-text-black text-white motion-safe:animate-pulse  duration-500 cursor-pointer  text-4xl md:text-7xl" />
                 </div>
               </div>
               <div className=" flex-wrap md:flex-nowrap md:flex  text-left  items-center md:space-x-4 p-2 text-[#404040] lg:text-[23px] font-normal ">
@@ -137,28 +169,19 @@ function MovieDetails() {
                       More watch options
                     </button>
                     <div className="relative grid grid-cols-3 gap-1 rounded-lg overflow-hidden">
-                      <img
-                        src="https://www.washingtonpost.com/graphics/2019/entertainment/oscar-nominees-movie-poster-design/img/black-panther-web.jpg"
-                        alt=""
-                      />
-                      <img
-                        src="https://goodmovieslist.com/best-movies/movie-posters/tt0120623.jpg"
-                        alt=""
-                      />
-                      <img
-                        src="https://www.dreamworks.com/storage/movies/kung-fu-panda/posters/kung-fu-panda-poster-1.jpg"
-                        alt=""
-                      />
-
-                      <div className="absolute  bottom-0 h-10 w-full   text-white">
-                        <button className="  relative w-full h-full  flex items-center text-xs justify-center gap-1">
-                          <TfiMenuAlt className="text-xl " /> The Best Movies and Shows in September
+                      {nowPlayingMovies.slice(3, 6).map((movie) => (
+                        <img
+                          key={movie.id}
+                          src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                          alt={movie.title}
+                        />
+                      ))}
+                      <div className="absolute bottom-0 h-10 w-full text-white">
+                        <button className="relative w-full h-full flex items-center text-xs justify-center gap-1">
+                          <TfiMenuAlt className="text-xl" /> The Best Movies and Shows in September
                         </button>
-                        <div className="absolute inset-0 flex items-center justify-center bg-black  opacity-40 hover:opacity-40 transition-opacity duration-300">
-                        </div>
+                        <div className="absolute inset-0 flex items-center justify-center bg-black opacity-40 hover:opacity-40 transition-opacity duration-300"></div>
                       </div>
-
-
                     </div>
                   </div>
                 </div>

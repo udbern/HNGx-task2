@@ -1,9 +1,9 @@
 // Import necessary modules and components
-import React from 'react'; 
+import React from 'react';
 import requests from '../Requests';
-import Main from '../components/Main'; 
+import Main from '../components/Main';
 import Row from '../components/Row';
-import Navbar from "../components/Navbar"; 
+import Navbar from "../components/Navbar";
 
 
 function Home() {

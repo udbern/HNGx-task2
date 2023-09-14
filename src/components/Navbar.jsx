@@ -33,7 +33,7 @@ function Navbar() {
   return (
     <>
       {/* Navigation bar */}
-      <nav className="absolute z-[100] w-full">
+      <nav className="absolute top-0 z-[100] w-full">
         <div className="container mx-auto  bg-transparent flex justify-between items-center text-white p-10">
           
           <Link className="w-28 md:w-40" to="/">

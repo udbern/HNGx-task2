@@ -1,8 +1,8 @@
 // Import necessary modules and components from external libraries
-import React, { useEffect, useState } from "react"; 
-import axios from "axios"; 
-import { Link } from "react-router-dom"; 
-import { AiOutlineRight, AiOutlineHeart, AiFillHeart } from "react-icons/ai"; 
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { AiOutlineRight, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 
 function Row({ title, fetchURL }) {
@@ -38,7 +38,7 @@ function Row({ title, fetchURL }) {
       </div>
       {loading ? (
         // Display a loading message while data is being fetched
-        <p className="text-2xl text-center">Loading...</p>
+        <p className="text-xl text-center animate-ping duration-500">Loading...</p>
       ) : (
         <div>
           <div className="grid justify-center items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 h-full md:gap-5 px-5">
