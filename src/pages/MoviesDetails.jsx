@@ -23,7 +23,6 @@ function MovieDetails() {
   // State to control the mobile sidebar visibility
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-
   useEffect(() => {
     const fetchNowPlayingMovies = async () => {
       try {
@@ -40,6 +39,32 @@ function MovieDetails() {
     fetchNowPlayingMovies();
   }, []);
 
+  // Function to format movie runtime in minutes (without hours)
+  const formatRuntime = (minutes) => {
+    const remainingMinutes = minutes % 60;
+    return `${remainingMinutes}m`; // Format runtime in minutes without hours
+  };
+
+  // Function to format movie release date in "YYYY-MM-DD HH:mm:ss" format
+  const formatReleaseDate = (dateString) => {
+    const options = {
+      day: 'monday',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      timeZoneName: 'short',
+    };
+    return new Date(dateString).toLocaleString('en-US', options);
+  };
+
+  // Function to toggle the mobile sidebar
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
@@ -50,7 +75,6 @@ function MovieDetails() {
         setMovie(response.data);
 
         // Set the movie details in the state and mark loading as complete
-        setMovie(response.data);
         setLoading(false);
       } catch (error) {
         // Handle errors, if any, and mark loading as complete
@@ -61,30 +85,6 @@ function MovieDetails() {
 
     fetchMovieDetails();
   }, [id]);
-
-  // Function to format movie runtime in hours and minutes
-  const formatRuntime = (minutes) => {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    return `${hours}h ${remainingMinutes}m`;
-  };
-
-  // Function to format movie release date to a UTC format
-  const formatReleaseDate = (dateString) => {
-    const options = {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    };
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", options);
-  };
-
-  // Function to toggle the mobile sidebar
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
 
   return (
     <>
